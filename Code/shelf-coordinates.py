@@ -41,6 +41,7 @@ def get_parser():
     return my_parser
 
 def build_coordinate_system(args):
+    ''' This function is used to create desired custom coordinate system '''
     OUTPUT_DIR_PATH = args.output_dir
     os.makedirs(OUTPUT_DIR_PATH, exist_ok=True)
     img_dir = args.img_dir

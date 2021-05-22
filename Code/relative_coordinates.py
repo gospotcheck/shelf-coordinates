@@ -20,6 +20,7 @@ def row_grouping(coco_annotations, threshold_value):
     return coco_annotations
 
 def count_row_objects(annotations):
+    ''' Count the objects frequencies in each row and append object counts'''
     ptr = annotations[0][4]
     count = 0
     annotations[0].append(count)
