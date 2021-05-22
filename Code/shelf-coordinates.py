@@ -32,6 +32,12 @@ def get_parser():
                         metavar='threshold constant',
                         type=float,
                         help='desired threshold constant to be multiplied with max height')
+    my_parser.add_argument('--annotations_type',
+                        default='true',
+                        nargs='?',
+                        metavar='annotations type',
+                        type=str,
+                        help='which type of annotations you would like to experiment on, true or pred?')
     return my_parser
 
 def build_coordinate_system(args):
@@ -39,6 +45,7 @@ def build_coordinate_system(args):
     os.makedirs(OUTPUT_DIR_PATH, exist_ok=True)
     img_dir = args.img_dir
     output_dir = os.path.join(OUTPUT_DIR_PATH, "result.json")
+    type = args.annotations_type
 
     f = open(args.ann_path)
     data = json.load(f)
@@ -51,7 +58,7 @@ def build_coordinate_system(args):
 
         if not img.startswith('.'):
             image_array = cv2.imread(f"{img_dir}/{img}")
-            annotations = np.array(data[img]['true'])
+            annotations = np.array(data[img][type])
 
             coco_annotations = toCoco(annotations)
             grouped_annotations = row_grouping(coco_annotations, args.threshold_constant)
